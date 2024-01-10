@@ -83,7 +83,7 @@ describe("Order repository test", () => {
     });
   });
 
-  it("should update an order", async () => {
+  it("should update an order by applying 50% discount on the total order value", async () => {
     const customerRepository = new CustomerRepository();
     const customer = new Customer("123", "Customer 1");
     const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
@@ -91,7 +91,6 @@ describe("Order repository test", () => {
     await customerRepository.create(customer);
 
     const productRepository = new ProductRepository();
-
     const product1 = new Product("123", "Product 1", 10);
     await productRepository.create(product1);
 
@@ -126,7 +125,7 @@ describe("Order repository test", () => {
       include: ["items"],
     });
 
-    expect(orderModel.toJSON().total).toBe(10);
+    expect(orderModel.total).toBe(10);
   });
 
   it("should find an order", async () => {

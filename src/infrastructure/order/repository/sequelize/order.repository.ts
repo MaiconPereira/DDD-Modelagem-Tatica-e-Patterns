@@ -31,6 +31,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
       {
         customer_id: entity.customerId,
         total: entity.total(),
+        discount_coupon: entity.discountCoupon,
       },
       {
         where: {
