@@ -9,7 +9,7 @@ export default class CustomerFactory {
 
   public static createWithAddress(name: string, address: Address): Customer {
     const customer = Customer.create(uuid(), name);
-    customer.changeAddress(address);
+    customer.Address = address;
     return customer;
   }
 }

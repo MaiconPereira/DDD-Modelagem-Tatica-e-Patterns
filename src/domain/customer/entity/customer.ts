@@ -69,6 +69,8 @@ export default class Customer {
   }
 
   changeAddress(address: Address) {
+    this._address = address;
+
     const eventDispatcher = new EventDispatcher();
     const event = new CustomerChangeAddressEvent(this);
 
@@ -77,8 +79,6 @@ export default class Customer {
       new CustomerChangeAddressHandler()
     );
     eventDispatcher.notify(event);
-
-    this._address = address;
   }
 
   isActive(): boolean {
