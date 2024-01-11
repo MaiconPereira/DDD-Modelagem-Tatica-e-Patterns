@@ -1,3 +1,9 @@
+import EventDispatcher from "../../@shared/event/event-dispatcher";
+import CustomerChangeAddressEvent from "../event/handler/customer-change-address.event";
+import CustomerChangeAddressHandler from "../event/handler/customer-change-address.handler";
+import CustomerCreatedHandlerOne from "../event/handler/customer-created-one.handler";
+import CustomerCreatedHandlerTwo from "../event/handler/customer-created-two.handler";
+import CustomerCreatedEvent from "../event/handler/customer-created.event";
 import Address from "../value-object/address";
 
 export default class Customer {
@@ -11,6 +17,25 @@ export default class Customer {
     this._id = id;
     this._name = name;
     this.validate();
+  }
+
+  static create(id: string, name: string): Customer {
+    const customer = new Customer(id, name);
+
+    const eventDispatcher = new EventDispatcher();
+    const event = new CustomerCreatedEvent(customer);
+
+    eventDispatcher.register(
+      "CustomerCreatedEvent",
+      new CustomerCreatedHandlerOne()
+    );
+    eventDispatcher.register(
+      "CustomerCreatedEvent",
+      new CustomerCreatedHandlerTwo()
+    );
+    eventDispatcher.notify(event);
+
+    return customer;
   }
 
   get id(): string {
@@ -44,6 +69,15 @@ export default class Customer {
   }
 
   changeAddress(address: Address) {
+    const eventDispatcher = new EventDispatcher();
+    const event = new CustomerChangeAddressEvent(this);
+
+    eventDispatcher.register(
+      "CustomerChangeAddressEvent",
+      new CustomerChangeAddressHandler()
+    );
+    eventDispatcher.notify(event);
+
     this._address = address;
   }
 

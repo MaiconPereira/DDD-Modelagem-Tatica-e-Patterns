@@ -1,3 +1,5 @@
+import Customer from "../../customer/entity/customer";
+import CustomerCreatedOneHandler from "../../customer/event/handler/customer-created-one.handler";
 import ProductCreatedEvent from "../../product/event/handler/product-created.event";
 import SendEmailWhenProductIsCreatedHandler from "../../product/event/handler/send-email-when-product-is-created.handler";
 import EventDispatcher from "./event-dispatcher";

@@ -49,7 +49,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
       throw new Error("Customer not found");
     }
 
-    const customer = new Customer(id, customerModel.name);
+    const customer = Customer.create(id, customerModel.name);
     const address = new Address(
       customerModel.street,
       customerModel.number,
@@ -64,7 +64,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
     const customerModels = await CustomerModel.findAll();
 
     const customers = customerModels.map((customerModels) => {
-      let customer = new Customer(customerModels.id, customerModels.name);
+      let customer = Customer.create(customerModels.id, customerModels.name);
       customer.addRewardPoints(customerModels.rewardPoints);
       const address = new Address(
         customerModels.street,

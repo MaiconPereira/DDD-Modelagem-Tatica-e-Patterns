@@ -4,11 +4,11 @@ import Address from "../value-object/address";
 
 export default class CustomerFactory {
   public static create(name: string): Customer {
-    return new Customer(uuid(), name);
+    return Customer.create(uuid(), name);
   }
 
   public static createWithAddress(name: string, address: Address): Customer {
-    const customer = new Customer(uuid(), name);
+    const customer = Customer.create(uuid(), name);
     customer.changeAddress(address);
     return customer;
   }
