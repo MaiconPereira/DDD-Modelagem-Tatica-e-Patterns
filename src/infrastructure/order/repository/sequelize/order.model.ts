@@ -31,7 +31,4 @@ export default class OrderModel extends Model {
 
   @Column({ allowNull: false })
   declare total: number;
-
-  @Column({ allowNull: true })
-  declare discount_coupon: number;
 }
