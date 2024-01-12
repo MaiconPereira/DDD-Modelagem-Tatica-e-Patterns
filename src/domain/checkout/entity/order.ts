@@ -5,20 +5,13 @@ export default class Order {
   private _customerId: string;
   private _items: OrderItem[];
   private _total: number;
-  private _discountCoupon?: number;
 
-  constructor(
-    id: string,
-    customerId: string,
-    items: OrderItem[],
-    discountCoupon?: number
-  ) {
+  constructor(id: string, customerId: string, items: OrderItem[]) {
     this._id = id;
     this._customerId = customerId;
     this._items = items;
     this._total = this.total();
     this.validate();
-    this._discountCoupon = discountCoupon;
   }
 
   get id(): string {
@@ -31,10 +24,6 @@ export default class Order {
 
   get items(): OrderItem[] {
     return this._items;
-  }
-
-  get discountCoupon(): number | undefined {
-    return this._discountCoupon;
   }
 
   validate(): boolean {
@@ -57,10 +46,6 @@ export default class Order {
 
   total(): number {
     this._total = this._items.reduce((acc, item) => acc + item.total(), 0);
-
-    if (this._discountCoupon) {
-      this._total -= this._total * (this._discountCoupon / 100);
-    }
 
     return this._total;
   }
